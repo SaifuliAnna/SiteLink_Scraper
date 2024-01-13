@@ -11,7 +11,7 @@ This Python script is designed to scrape rental property data from the [Site](ht
 
 ## Usage
 
-1. Run the script with `python script_name.py`.
+1. Run the script with `python link_scraper.py`.
 
 *Note: Make sure to replace `link_scraper.py` with the actual name of your Python script.*
 
