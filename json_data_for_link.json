@@ -1,0 +1,42 @@
+{
+  "name": null,
+  "role": "generic",
+  "actions": ["Щёлкнуть"],
+  "value": "",
+  "nodeCssSelector": ".list-order > div:nth-child(1) > ul:nth-child(1) > li:nth-child(4) > a:nth-child(1)",
+  "nodeType": 1,
+  "description": "",
+  "keyboardShortcut": "",
+  "childCount": 1,
+  "indexInParent": 1,
+  "states": ["selectable text", "opaque", "enabled", "sensitive"],
+  "children": [
+    {
+      "name": "",
+      "role": "statictext",
+      "actions": ["Щёлкнуть по родителю"],
+      "value": "",
+      "nodeCssSelector": ".list-order > div:nth-child(1) > ul:nth-child(1) > li:nth-child(4) > a:nth-child(1)#text",
+      "nodeType": 3,
+      "description": "",
+      "keyboardShortcut": "",
+      "childCount": 0,
+      "indexInParent": 0,
+      "states": ["opaque", "enabled", "sensitive"],
+      "children": [],
+      "attributes": {"explicit-name": "true"}
+    }
+  ],
+  "attributes": {
+    "margin-left": "0px",
+    "text-align": "center",
+    "text-indent": "0px",
+    "formatting": "block",
+    "tag": "li",
+    "class": "next",
+    "margin-top": "0px",
+    "margin-bottom": "7.4px",
+    "margin-right": "0px",
+    "display": "list-item"
+  }
+}
