@@ -8,15 +8,41 @@ from selenium.webdriver.common.by import By
 
 
 def read_json_data(file_path):
+    """
+    Reads JSON data from the specified file.
+
+    Args:
+        file_path (str): The path to the JSON file.
+
+    Returns:
+        dict: The loaded JSON data.
+    """
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
 
 def initialize_webdriver():
+    """
+    Initializes and returns a Chrome WebDriver instance.
+
+    Returns:
+        WebDriver: The Chrome WebDriver instance.
+    """
     return webdriver.Chrome()
 
 
 def get_unique_links(driver, xpath, json_data):
+    """
+    Extracts unique links from the specified XPath on the web page.
+
+    Args:
+        driver (WebDriver): The Chrome WebDriver instance.
+        xpath (str): The XPath expression to locate the elements.
+        json_data (dict): JSON data containing information for pagination.
+
+    Returns:
+        list: A list of dictionaries containing information about the rental properties.
+    """
     rent_data_list = []
 
     while len(rent_data_list) < 60:
@@ -60,6 +86,16 @@ def get_unique_links(driver, xpath, json_data):
 
 
 def get_additional_details(driver, rent_data_list):
+    """
+    Retrieves additional details for each rental property in the list.
+
+    Args:
+        driver (WebDriver): The Chrome WebDriver instance.
+        rent_data_list (list): A list of dictionaries containing basic information about rental properties.
+
+    Returns:
+        list: A list of dictionaries containing additional details for each rental property.
+    """
     for rent_data in rent_data_list:
         link_in_data_rent = rent_data["link"]
         driver.get(link_in_data_rent)
@@ -99,6 +135,9 @@ def get_additional_details(driver, rent_data_list):
 
 
 def main():
+    """
+    Main function to execute the web scraping and data extraction process.
+    """
     json_data = read_json_data("json_data_for_link.json")
     driver = initialize_webdriver()
 
