@@ -1,12 +1,15 @@
+import json
 import logging
+import os
 import time
-from unittest.mock import MagicMock, patch
+# from unittest.mock import patch, mock_open, call
 
 import pytest
 from selenium import webdriver
 
 from link_scraper import (get_additional_details, get_unique_links,
-                          initialize_webdriver, main, read_json_data)
+                          initialize_webdriver, main, read_json_data,
+                          save_to_json)
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -18,9 +21,35 @@ def driver_mock():
     return webdriver.Chrome()
 
 
-# @pytest.fixture
-# def json_data():
-#     return read_json_data("json_data_for_link.json")
+@pytest.fixture
+def sample_data():
+    return [{"key1": "value1", "key2": "value2"},
+            {"key3": "value3", "key4": "value4"},
+            ]
+
+
+@pytest.fixture
+def json_file_path(tmpdir):
+    return tmpdir.join("test_data.json").strpath
+
+
+#  ---------------------------------------------------
+@pytest.fixture
+def json_data():
+    return read_json_data("json_data_for_link.json")
+
+
+def test_read_json_data_fix(json_data):
+    expected_json_data = json_data
+    assert expected_json_data is not None
+
+    # Checks if the nodeCssSelector key is present in the loaded data
+    assert "nodeCssSelector" in expected_json_data
+
+    # Checks if the "nodeCssSelector" key value is a string
+    assert isinstance(expected_json_data["nodeCssSelector"], str)
+
+#  ---------------------------------------------------
 
 
 def test_read_json_data():
@@ -90,6 +119,17 @@ def test_get_additional_details(driver_mock):
     print("Test completed successfully!")
 
 
-@patch("your_script.json.dump", MagicMock())
-def test_main():
-    main()
+def test_save_to_json(sample_data, json_file_path):
+    # Arrange
+    expected_data = sample_data
+
+    # Act
+    save_to_json(sample_data, json_file_path)
+
+    # Assert
+    assert os.path.exists(json_file_path)
+
+    with open(json_file_path, "r", encoding="utf-8") as json_file:
+        actual_data = json.load(json_file)
+
+    assert actual_data == expected_data

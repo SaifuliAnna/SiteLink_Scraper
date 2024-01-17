@@ -134,6 +134,18 @@ def get_additional_details(driver, rent_data_list):
     return rent_data_list
 
 
+def save_to_json(data, file_path):
+    """
+    Saves data to a JSON file.
+
+    Args:
+        data (any): The data to be saved.
+        file_path (str): The path to the JSON file.
+    """
+    with open(file_path, "w", encoding="utf-8") as json_file:
+        json.dump(data, json_file, ensure_ascii=False, indent=2)
+
+
 def main():
     """
     Main function to execute the web scraping and data extraction process.
@@ -150,8 +162,9 @@ def main():
 
     rent_data_list = get_additional_details(driver, rent_data_list)
 
-    with open("data_website.json", "w", encoding="utf-8") as json_file:
-        json.dump(rent_data_list, json_file, ensure_ascii=False, indent=2)
+    save_to_json(rent_data_list, "data_website.json")
+    # with open("data_website.json", "w", encoding="utf-8") as json_file:
+    #     json.dump(rent_data_list, json_file, ensure_ascii=False, indent=2)
 
     driver.quit()
 
